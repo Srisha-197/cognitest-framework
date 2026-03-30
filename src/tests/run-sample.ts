@@ -1,5 +1,22 @@
+import fs from "fs";
 import { ExecutionEngine } from "../execution/execution-engine";
 import type { ExecutionRequest } from "../types";
+
+// Ensure Allure results directory exists (DO NOT DELETE IT)
+const allureDir = "/app/reports/allure-results";
+
+try {
+  if (!fs.existsSync(allureDir)) {
+    fs.mkdirSync(allureDir, { recursive: true });
+    console.log("Created Allure results directory");
+  } else {
+    console.log("Allure results directory already exists");
+  }
+} catch (err) {
+  console.error("Error ensuring Allure directory:", err);
+}
+
+// ---------------------------
 
 const MODE = (process.env.MODE as "api" | "web" | "mobile" | "all") || "all";
 
