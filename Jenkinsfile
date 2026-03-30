@@ -4,14 +4,6 @@ pipeline {
     environment {
         IMAGE_NAME = "cognitest"
         IMAGE_TAG = "${BUILD_NUMBER}"
-
-        //Secure credentials from Jenkins
-        JIRA_BASE_URL = credentials('jira-url')
-        JIRA_EMAIL    = credentials('jira-email')
-        JIRA_API_TOKEN = credentials('jira-token')
-
-        //REQUIRED (add your Jira project key)
-        JIRA_PROJECT_KEY = "TEST"
     }
 
     stages {
@@ -31,23 +23,38 @@ pipeline {
             }
         }
 
-        stage('Run Tests in Docker') {
+        stage('Clean Reports') {
             steps {
                 sh '''
-                echo "Running tests..."
-
+                echo "Cleaning old reports..."
+                rm -rf reports/allure-results || true
                 mkdir -p reports/allure-results
-
-                docker run --rm \
-                  --name cognitest-container \
-                  -v "$(pwd)/reports/allure-results:/app/reports/allure-results" \
-                  -e JIRA_BASE_URL="$JIRA_BASE_URL" \
-                  -e JIRA_EMAIL="$JIRA_EMAIL" \
-                  -e JIRA_API_TOKEN="$JIRA_API_TOKEN" \
-                  -e JIRA_PROJECT_KEY="$JIRA_PROJECT_KEY" \
-                  ${IMAGE_NAME}:${IMAGE_TAG} \
-                  npm run test || true
                 '''
+            }
+        }
+
+        stage('Run Tests in Docker') {
+            steps {
+                withCredentials([
+                    string(credentialsId: 'jira-url', variable: 'JIRA_BASE_URL'),
+                    string(credentialsId: 'jira-email', variable: 'JIRA_EMAIL'),
+                    string(credentialsId: 'jira-token', variable: 'JIRA_API_TOKEN'),
+                    string(credentialsId: 'jira-project', variable: 'JIRA_PROJECT_KEY')
+                ]) {
+                    sh '''
+                    echo "Running tests..."
+
+                    docker run --rm \
+                      --name cognitest-container \
+                      -v "$(pwd)/reports/allure-results:/app/reports/allure-results" \
+                      -e JIRA_BASE_URL="$JIRA_BASE_URL" \
+                      -e JIRA_EMAIL="$JIRA_EMAIL" \
+                      -e JIRA_API_TOKEN="$JIRA_API_TOKEN" \
+                      -e JIRA_PROJECT_KEY="$JIRA_PROJECT_KEY" \
+                      ${IMAGE_NAME}:${IMAGE_TAG} \
+                      npm run test || true
+                    '''
+                }
             }
         }
 
@@ -68,9 +75,13 @@ pipeline {
 
         stage('Publish Allure Report') {
             steps {
-                allure includeProperties: false,
-                       jdk: '',
-                       results: [[path: 'reports/allure-results']]
+                script {
+                    echo "Publishing Allure report..."
+                }
+                // NOTE: Requires Allure plugin installed
+                allure([
+                    results: [[path: 'reports/allure-results']]
+                ])
             }
         }
 
@@ -84,9 +95,6 @@ pipeline {
     post {
         always {
             echo "Pipeline completed"
-        }
-        success {
-            echo "SUCCESS"
         }
         failure {
             echo "FAILED"
