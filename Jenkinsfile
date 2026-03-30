@@ -1,10 +1,14 @@
 pipeline {
-
     agent any
 
     environment {
         IMAGE_NAME = "cognitest"
-        CONTAINER_NAME = "cognitest-container"
+        IMAGE_TAG = "${BUILD_NUMBER}"
+
+        // ✅ Add required environment variables
+        JIRA_BASE_URL = "https://your-domain.atlassian.net"
+        JIRA_EMAIL = "your-email@example.com"
+        JIRA_API_TOKEN = "your-api-token"
     }
 
     stages {
@@ -19,7 +23,7 @@ pipeline {
             steps {
                 sh '''
                 echo "Building Docker image..."
-                docker build -t ${IMAGE_NAME}:${BUILD_NUMBER} .
+                docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .
                 '''
             }
         }
@@ -32,9 +36,12 @@ pipeline {
                 mkdir -p reports/allure-results
 
                 docker run --rm \
-                  --name ${CONTAINER_NAME} \
+                  --name cognitest-container \
                   -v "$(pwd)/reports/allure-results:/app/reports/allure-results" \
-                  ${IMAGE_NAME}:${BUILD_NUMBER} \
+                  -e JIRA_BASE_URL=$JIRA_BASE_URL \
+                  -e JIRA_EMAIL=$JIRA_EMAIL \
+                  -e JIRA_API_TOKEN=$JIRA_API_TOKEN \
+                  ${IMAGE_NAME}:${IMAGE_TAG} \
                   npm run test
                 '''
             }
@@ -43,34 +50,37 @@ pipeline {
         stage('Verify Allure Results') {
             steps {
                 sh '''
-                echo "Checking results..."
-                ls -R reports/allure-results || true
+                if [ -d "reports/allure-results" ]; then
+                  echo "Allure results found"
+                else
+                  echo "No Allure results found"
+                  exit 1
+                fi
                 '''
             }
         }
 
         stage('Publish Allure Report') {
             steps {
-                allure([
-                    includeProperties: false,
-                    results: [[path: 'reports/allure-results']]
-                ])
+                allure includeProperties: false,
+                       jdk: '',
+                       results: [[path: 'reports/allure-results']]
             }
         }
 
         stage('Archive Results') {
             steps {
-                archiveArtifacts artifacts: 'reports/**', allowEmptyArchive: true
+                archiveArtifacts artifacts: 'reports/**', fingerprint: true
             }
         }
     }
 
     post {
         always {
-            echo 'Pipeline completed'
+            echo "Pipeline completed"
         }
         failure {
-            echo 'FAILED'
+            echo "FAILED"
         }
     }
 }
