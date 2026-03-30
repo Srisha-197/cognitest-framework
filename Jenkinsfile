@@ -9,25 +9,13 @@ pipeline {
 
     stages {
 
-        stage('Clean Workspace') {
-            steps {
-                cleanWs()
-            }
-        }
-
-        // ❌ NO checkout stage here (Jenkins already does it)
-        stage('Force Clean Git') {
-    steps {
-        sh '''
-        rm -rf .git || true
-        '''
-    }
-}
+        // ❌ REMOVE CLEAN WORKSPACE
 
         stage('Build Docker Image') {
             steps {
                 sh '''
                 echo "Building Docker image..."
+                ls -la
                 docker build -t ${IMAGE_NAME}:${BUILD_NUMBER} .
                 '''
             }
@@ -36,7 +24,7 @@ pipeline {
         stage('Run Tests in Docker') {
             steps {
                 sh '''
-                echo "Running tests inside container..."
+                echo "Running tests..."
 
                 mkdir -p reports/allure-results
 
@@ -52,7 +40,7 @@ pipeline {
         stage('Verify Allure Results') {
             steps {
                 sh '''
-                echo "Checking Allure results..."
+                echo "Checking results..."
                 ls -R reports/allure-results || true
                 '''
             }
@@ -60,7 +48,6 @@ pipeline {
 
         stage('Publish Allure Report') {
             steps {
-                echo "Publishing Allure report..."
                 allure([
                     includeProperties: false,
                     results: [[path: 'reports/allure-results']]
@@ -80,10 +67,10 @@ pipeline {
             echo 'Pipeline completed'
         }
         success {
-            echo 'SUCCESS: Tests executed and report generated'
+            echo 'SUCCESS'
         }
         failure {
-            echo 'FAILED: Check logs'
+            echo 'FAILED'
         }
     }
 }
