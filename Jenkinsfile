@@ -9,13 +9,16 @@ pipeline {
 
     stages {
 
-        // ❌ REMOVE CLEAN WORKSPACE
+        stage('Checkout Code') {
+            steps {
+                checkout scm
+            }
+        }
 
         stage('Build Docker Image') {
             steps {
                 sh '''
                 echo "Building Docker image..."
-                ls -la
                 docker build -t ${IMAGE_NAME}:${BUILD_NUMBER} .
                 '''
             }
@@ -30,7 +33,7 @@ pipeline {
 
                 docker run --rm \
                   --name ${CONTAINER_NAME} \
-                  -v $(pwd)/reports/allure-results:/app/reports/allure-results \
+                  -v "$(pwd)/reports/allure-results:/app/reports/allure-results" \
                   ${IMAGE_NAME}:${BUILD_NUMBER} \
                   npm run test
                 '''
@@ -65,9 +68,6 @@ pipeline {
     post {
         always {
             echo 'Pipeline completed'
-        }
-        success {
-            echo 'SUCCESS'
         }
         failure {
             echo 'FAILED'
