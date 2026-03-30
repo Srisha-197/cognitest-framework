@@ -5,10 +5,10 @@ pipeline {
         IMAGE_NAME = "cognitest"
         IMAGE_TAG = "${BUILD_NUMBER}"
 
-        // ✅ Add required environment variables
-        JIRA_BASE_URL = "https://your-domain.atlassian.net"
-        JIRA_EMAIL = "your-email@example.com"
-        JIRA_API_TOKEN = "your-api-token"
+        // Pull values from Jenkins credentials
+        JIRA_BASE_URL = credentials('jira-url')
+        JIRA_EMAIL    = credentials('jira-email')
+        JIRA_API_TOKEN = credentials('jira-token')
     }
 
     stages {
@@ -38,9 +38,9 @@ pipeline {
                 docker run --rm \
                   --name cognitest-container \
                   -v "$(pwd)/reports/allure-results:/app/reports/allure-results" \
-                  -e JIRA_BASE_URL=$JIRA_BASE_URL \
-                  -e JIRA_EMAIL=$JIRA_EMAIL \
-                  -e JIRA_API_TOKEN=$JIRA_API_TOKEN \
+                  -e JIRA_BASE_URL="$JIRA_BASE_URL" \
+                  -e JIRA_EMAIL="$JIRA_EMAIL" \
+                  -e JIRA_API_TOKEN="$JIRA_API_TOKEN" \
                   ${IMAGE_NAME}:${IMAGE_TAG} \
                   npm run test
                 '''
