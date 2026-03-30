@@ -16,6 +16,13 @@ pipeline {
         }
 
         // ❌ NO checkout stage here (Jenkins already does it)
+        stage('Force Clean Git') {
+    steps {
+        sh '''
+        rm -rf .git || true
+        '''
+    }
+}
 
         stage('Build Docker Image') {
             steps {
