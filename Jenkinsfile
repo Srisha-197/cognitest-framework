@@ -10,22 +10,27 @@ pipeline {
     stages {
 
         stage('Clean Workspace') {
-            steps { cleanWs() }
+            steps {
+                cleanWs()
+            }
         }
 
-        stage('Checkout Code') {
-            steps { checkout scm }
-        }
+        // ❌ NO checkout stage here (Jenkins already does it)
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t ${IMAGE_NAME}:${BUILD_NUMBER} .'
+                sh '''
+                echo "Building Docker image..."
+                docker build -t ${IMAGE_NAME}:${BUILD_NUMBER} .
+                '''
             }
         }
 
         stage('Run Tests in Docker') {
             steps {
                 sh '''
+                echo "Running tests inside container..."
+
                 mkdir -p reports/allure-results
 
                 docker run --rm \
@@ -40,7 +45,7 @@ pipeline {
         stage('Verify Allure Results') {
             steps {
                 sh '''
-                echo "Checking results..."
+                echo "Checking Allure results..."
                 ls -R reports/allure-results || true
                 '''
             }
@@ -48,6 +53,7 @@ pipeline {
 
         stage('Publish Allure Report') {
             steps {
+                echo "Publishing Allure report..."
                 allure([
                     includeProperties: false,
                     results: [[path: 'reports/allure-results']]
@@ -65,6 +71,12 @@ pipeline {
     post {
         always {
             echo 'Pipeline completed'
+        }
+        success {
+            echo 'SUCCESS: Tests executed and report generated'
+        }
+        failure {
+            echo 'FAILED: Check logs'
         }
     }
 }
