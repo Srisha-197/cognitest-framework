@@ -39,6 +39,7 @@ pipeline {
                     sh '''
                     echo "Running tests with Mock API..."
 
+                    # Ensure report directory exists
                     mkdir -p reports/allure-results
 
                     docker run --rm \
@@ -64,12 +65,22 @@ pipeline {
             steps {
                 sh '''
                 echo "Checking Allure results..."
+
                 if [ -d "reports/allure-results" ]; then
                   echo "Allure results found"
                 else
                   echo "No Allure results found"
+                  exit 1
                 fi
                 '''
+            }
+        }
+
+        stage('Publish Allure Report') {
+            steps {
+                allure includeProperties: false,
+                       jdk: '',
+                       results: [[path: 'reports/allure-results']]
             }
         }
 
