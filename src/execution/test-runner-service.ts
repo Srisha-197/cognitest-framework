@@ -159,50 +159,90 @@ export class TestRunnerService {
 
   // ================= WRITE ALLURE =================
   async writeAllureResults(results: TestResult[]): Promise<void> {
-  const dir = path.join(process.cwd(), "reports", "allure-results");
-  await fs.mkdir(dir, { recursive: true });
+    const dir = path.join(process.cwd(), "reports", "allure-results");
+    await fs.mkdir(dir, { recursive: true });
 
-  for (const result of results) {
-    const uuid = uuidv4();
+    for (const result of results) {
+      const uuid = uuidv4();
+      const file = path.join(dir, `${uuid}-result.json`);
 
-    const file = path.join(dir, `${uuid}-result.json`);
+      // ✅ FIX: ALWAYS NUMBER timestamps
+      const startTime =
+        typeof result.startedAt === "string"
+          ? new Date(result.startedAt).getTime()
+          : result.startedAt || Date.now();
 
-    // ✅ FIX: fallback timestamps
-    const startTime = Number(result.startedAt) || Date.now();
-    const stopTime = Number(result.endedAt) || startTime + 1;
+      const stopTime =
+        typeof result.endedAt === "string"
+          ? new Date(result.endedAt).getTime()
+          : result.endedAt || startTime + 1;
 
-    const data = {
-      uuid: uuid,
-      historyId: result.id,
-      testCaseId: result.id,
+      // ================= ATTACHMENTS =================
+      const attachments = (result.artifacts || []).map((artifact, index) => ({
+        name: artifact.name,
+        type: "text/plain",
+        source: `${uuid}-attachment-${index}.txt`
+      }));
 
-      name: result.name,
-      fullName: `${result.suite || "default"}#${result.name}`,
+      // Write attachment files
+      for (let i = 0; i < (result.artifacts || []).length; i++) {
+        const artifact = result.artifacts[i];
+        const attachmentPath = path.join(
+          dir,
+          `${uuid}-attachment-${i}.txt`
+        );
 
-      status: result.status,
-      stage: "finished",
+        await fs.writeFile(
+          attachmentPath,
+          artifact.content || "",
+          "utf8"
+        );
+      }
 
-      start: startTime,   // ✅ ALWAYS NUMBER
-      stop: stopTime,     // ✅ ALWAYS NUMBER
+      // ================= JIRA LINK =================
+      const links = result.defectId
+        ? [
+            {
+              name: "JIRA Ticket",
+              type: "issue",
+              url: `https://your-jira-domain/browse/${result.defectId}`
+            }
+          ]
+        : [];
 
-      steps: [],
-      attachments: [],
-      parameters: [],
+      const data = {
+        uuid,
+        historyId: result.id,
+        testCaseId: result.id,
 
-      labels: [
-        { name: "suite", value: result.suite || "default" },
-        { name: "framework", value: "custom" },
-        { name: "language", value: "typescript" },
-        { name: "host", value: "jenkins" },
-        { name: "thread", value: "main" }
-      ]
-    };
+        name: result.name,
+        fullName: `${result.suite || "default"}#${result.name}`,
 
-    await fs.writeFile(file, JSON.stringify(data, null, 2));
+        status: result.status,
+        stage: "finished",
+
+        start: startTime,
+        stop: stopTime,
+
+        steps: [],
+        attachments,
+        parameters: [],
+        links, // ✅ JIRA LINK HERE
+
+        labels: [
+          { name: "suite", value: result.suite || "default" },
+          { name: "framework", value: "custom" },
+          { name: "language", value: "typescript" },
+          { name: "host", value: "jenkins" },
+          { name: "thread", value: "main" }
+        ]
+      };
+
+      await fs.writeFile(file, JSON.stringify(data, null, 2));
+    }
+
+    console.log("Allure results generated with attachments + JIRA links");
   }
-
-  console.log("Allure result files created successfully");
-}
 
   // ================= SUMMARY =================
   private printSummary(results: TestResult[]) {
