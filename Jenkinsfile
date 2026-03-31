@@ -40,11 +40,11 @@ pipeline {
                     echo "Running tests with Mock API..."
 
                     # Ensure report directory exists
-                    mkdir -p reports/allure-results
+                    mkdir -p ${WORKSPACE}/reports/allure-results
 
                     docker run --rm \
                       --name cognitest-container \
-                      -v "$(pwd)/reports/allure-results:/app/reports/allure-results" \
+                      -v "${WORKSPACE}/reports/allure-results:/app/reports/allure-results" \
                       -e BASE_URL=$BASE_URL \
                       -e API_BASE_URL=$API_BASE_URL \
                       -e NODE_ENV=$NODE_ENV \
@@ -61,13 +61,29 @@ pipeline {
             }
         }
 
+        //DEBUG STAGE (VERY IMPORTANT)
+        stage('Debug Allure Results') {
+            steps {
+                sh '''
+                echo "Current workspace:"
+                pwd
+
+                echo "Listing reports folder:"
+                ls -la reports || true
+
+                echo "Listing allure results:"
+                ls -la reports/allure-results || true
+                '''
+            }
+        }
+
         stage('Verify Allure Results') {
             steps {
                 sh '''
                 echo "Checking Allure results..."
 
                 if [ -d "reports/allure-results" ]; then
-                  echo "Allure results found"
+                  echo "Allure results folder found"
                 else
                   echo "No Allure results found"
                   exit 1
