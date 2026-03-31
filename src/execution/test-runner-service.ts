@@ -15,6 +15,9 @@ import { loadEnv } from "../config/env-loader";
 
 const { apiBaseUrl: BASE_URL } = loadEnv();
 
+// ✅ IMPORTANT: get JIRA base URL from env
+const JIRA_BASE_URL = process.env.JIRA_BASE_URL || "";
+
 const isInfraDependencyError = (message: string): boolean =>
   message.includes("playwright install") ||
   message.includes("Executable doesn't exist") ||
@@ -98,12 +101,10 @@ export class TestRunnerService {
     const runId = `${test.id}-${Date.now()}`;
 
     try {
-      // API
       if (test.platform === "api") {
         context.apiContext = await this.apiDriver.startSession(BASE_URL);
       }
 
-      // WEB
       if (test.platform === "web") {
         const web = await this.webDriver.startSession(runId);
         context.browser = web.browser;
@@ -111,20 +112,17 @@ export class TestRunnerService {
         context.page = web.page;
       }
 
-      // MOBILE
       if (test.platform === "mobile") {
         context.mobileDriver = await this.mobileDriver.startSession(request.env);
       }
 
-      // RUN TEST
       await test.run(context);
 
       return makeResult(test, "passed", startedAt, Date.now(), 0, artifacts);
 
     } catch (error) {
       const endedAt = Date.now();
-      const message =
-        error instanceof Error ? error.message : "Unknown error";
+      const message = error instanceof Error ? error.message : "Unknown error";
 
       if (error instanceof SkipTestError || isInfraDependencyError(message)) {
         return makeResult(test, "skipped", startedAt, endedAt, 0, artifacts, message);
@@ -166,7 +164,7 @@ export class TestRunnerService {
       const uuid = uuidv4();
       const file = path.join(dir, `${uuid}-result.json`);
 
-      // ✅ FIX: ALWAYS NUMBER timestamps
+      // ✅ Fix timestamps
       const startTime =
         typeof result.startedAt === "string"
           ? new Date(result.startedAt).getTime()
@@ -187,25 +185,18 @@ export class TestRunnerService {
       // Write attachment files
       for (let i = 0; i < (result.artifacts || []).length; i++) {
         const artifact = result.artifacts[i];
-        const attachmentPath = path.join(
-          dir,
-          `${uuid}-attachment-${i}.txt`
-        );
+        const attachmentPath = path.join(dir, `${uuid}-attachment-${i}.txt`);
 
-        await fs.writeFile(
-          attachmentPath,
-          artifact.content || "",
-          "utf8"
-        );
+        await fs.writeFile(attachmentPath, artifact.content || "", "utf8");
       }
 
       // ================= JIRA LINK =================
       const links = result.defectId
         ? [
             {
-              name: "JIRA Ticket",
+              name: result.defectId,
               type: "issue",
-              url: `https://your-jira-domain/browse/${result.defectId}`
+              url: `${JIRA_BASE_URL}/browse/${result.defectId}`
             }
           ]
         : [];
@@ -227,7 +218,7 @@ export class TestRunnerService {
         steps: [],
         attachments,
         parameters: [],
-        links, // ✅ JIRA LINK HERE
+        links,
 
         labels: [
           { name: "suite", value: result.suite || "default" },
@@ -241,17 +232,15 @@ export class TestRunnerService {
       await fs.writeFile(file, JSON.stringify(data, null, 2));
     }
 
-    console.log("Allure results generated with attachments + JIRA links");
+    console.log("Allure results generated with JIRA + attachments");
   }
 
   // ================= SUMMARY =================
   private printSummary(results: TestResult[]) {
     console.log("\n========== TEST SUMMARY ==========");
-
     results.forEach(r => {
       console.log(`${r.id} | ${r.status.toUpperCase()}`);
     });
-
     console.log("==================================\n");
   }
 }
