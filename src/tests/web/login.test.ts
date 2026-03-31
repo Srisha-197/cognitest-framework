@@ -4,7 +4,7 @@ import type { HybridTestCase, TestContext } from "../../core/base-test";
 
 const csvData: LoginTestData[] = readCSV("src/testdata/web/login.data.csv");
 
-// ✅ Filter valid rows
+// Filter valid rows
 const validData = csvData.filter(
   (d) =>
     d.testcaseId &&

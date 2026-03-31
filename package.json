@@ -22,6 +22,7 @@
   "dependencies": {
     "@faker-js/faker": "^9.8.0",
     "allure-js-commons": "^3.6.0",
+    "allure-playwright": "^3.6.0",
     "amqplib": "^0.10.7",
     "appium": "^2.18.0",
     "axe-core": "^4.10.3",

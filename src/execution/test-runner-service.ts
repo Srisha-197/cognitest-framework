@@ -14,7 +14,6 @@ import { logger } from "../utils/logger";
 import { loadEnv } from "../config/env-loader";
 
 const { apiBaseUrl: BASE_URL } = loadEnv();
-console.log("[INFO] Loaded API Base URL:", BASE_URL);
 
 const isInfraDependencyError = (message: string): boolean =>
   message.includes("playwright install") ||
@@ -29,7 +28,11 @@ export class TestRunnerService {
   ) {}
 
   // ================= RUN TESTS =================
-  async runTests(tests: HybridTestCase[], request: ExecutionRequest): Promise<TestResult[]> {
+  async runTests(
+    tests: HybridTestCase[],
+    request: ExecutionRequest
+  ): Promise<TestResult[]> {
+
     await this.clearAllureResults();
 
     const parallelism = Math.max(1, request.parallelism ?? 2);
@@ -37,7 +40,7 @@ export class TestRunnerService {
     const results: TestResult[] = [];
     let shouldStop = false;
 
-    const worker = async (): Promise<void> => {
+    const worker = async () => {
       while (queue.length > 0) {
         if (request.failFast && shouldStop) return;
 
@@ -55,31 +58,26 @@ export class TestRunnerService {
     };
 
     await Promise.all(Array.from({ length: parallelism }, () => worker()));
-    this.printSummary(results);
 
+    this.printSummary(results);
     return results;
   }
 
-  // ================= FIXED CLEAN ALLURE =================
+  // ================= CLEAN ALLURE =================
   private async clearAllureResults(): Promise<void> {
     const dir = path.join(process.cwd(), "reports", "allure-results");
 
     try {
-      // Ensure directory exists
       await fs.mkdir(dir, { recursive: true });
 
-      // Clean only files (NOT folder)
       const files = await fs.readdir(dir);
-
       for (const file of files) {
-        const filePath = path.join(dir, file);
-        await fs.unlink(filePath);
+        await fs.unlink(path.join(dir, file));
       }
 
-      console.log("Allure results cleaned successfully");
-
+      console.log("Allure results cleaned");
     } catch (err) {
-      console.warn("Skipping Allure cleanup due to lock:", err);
+      console.warn("Allure cleanup skipped:", err);
     }
   }
 
@@ -91,7 +89,11 @@ export class TestRunnerService {
 
     const startedAt = Date.now();
     const artifacts: TestArtifact[] = [];
-    const context: TestContext = { env: request.env, artifacts };
+
+    const context: TestContext = {
+      env: request.env,
+      artifacts
+    };
 
     const runId = `${test.id}-${Date.now()}`;
 
@@ -103,10 +105,10 @@ export class TestRunnerService {
 
       // WEB
       if (test.platform === "web") {
-        const webSession = await this.webDriver.startSession(runId);
-        context.browser = webSession.browser;
-        context.browserContext = webSession.context;
-        context.page = webSession.page;
+        const web = await this.webDriver.startSession(runId);
+        context.browser = web.browser;
+        context.browserContext = web.context;
+        context.page = web.page;
       }
 
       // MOBILE
@@ -121,19 +123,20 @@ export class TestRunnerService {
 
     } catch (error) {
       const endedAt = Date.now();
-      const errorMessage = error instanceof Error ? error.message : "unknown error";
+      const message =
+        error instanceof Error ? error.message : "Unknown error";
 
-      if (error instanceof SkipTestError || isInfraDependencyError(errorMessage)) {
-        return makeResult(test, "skipped", startedAt, endedAt, 0, artifacts, errorMessage);
+      if (error instanceof SkipTestError || isInfraDependencyError(message)) {
+        return makeResult(test, "skipped", startedAt, endedAt, 0, artifacts, message);
       }
 
       logger.error({
         event: "test_failure",
         testId: test.id,
-        message: errorMessage
+        message
       });
 
-      return makeResult(test, "failed", startedAt, endedAt, 0, artifacts, errorMessage);
+      return makeResult(test, "failed", startedAt, endedAt, 0, artifacts, message);
 
     } finally {
       if (context.apiContext) {
@@ -161,18 +164,31 @@ export class TestRunnerService {
 
     for (const result of results) {
       const uuid = uuidv4();
+
       const file = path.join(dir, `${uuid}-result.json`);
 
       const data = {
-        uuid,
+        uuid: uuid,
+        historyId: result.id,
         name: result.name,
+        fullName: result.name,
         status: result.status,
-        start: result.startedAt,
-        stop: result.endedAt
+        stage: "finished",
+
+        start: Number(result.startedAt), // ✅ FIXED (must be number)
+        stop: Number(result.endedAt),    // ✅ FIXED
+
+        labels: [
+          { name: "suite", value: result.suite || "default" },
+          { name: "framework", value: "custom" },
+          { name: "language", value: "typescript" }
+        ]
       };
 
       await fs.writeFile(file, JSON.stringify(data, null, 2));
     }
+
+    console.log("Allure results written successfully");
   }
 
   // ================= SUMMARY =================
