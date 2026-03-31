@@ -1,4 +1,0 @@
-{
-  "endpoint": "/support",
-  "method": "GET"
-}

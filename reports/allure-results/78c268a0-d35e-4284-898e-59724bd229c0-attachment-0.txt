@@ -1,8 +1,0 @@
-{
-  "endpoint": "/rate",
-  "method": "POST",
-  "payload": {
-    "amount": 100,
-    "currency": "INVALID"
-  }
-}

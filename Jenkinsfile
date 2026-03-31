@@ -48,7 +48,7 @@ pipeline {
                       -e JIRA_ACCOUNT_ID=$JIRA_ACCOUNT_ID \
                       -e API_BASE_URL=$API_BASE_URL \
                       ${IMAGE_NAME}:${IMAGE_TAG} \
-                      npm run test
+                      npm run test:ci
                     '''
                 }
             }

@@ -12,6 +12,7 @@
     "lint": "eslint \"src/**/*.ts\"",
     "typecheck": "tsc --noEmit",
     "test": "tsx src/tests/run-sample.ts",
+    "test:ci": "tsx src/ci-runner.ts",
     "service": "tsx src/main.ts",
     "allure:generate": "allure generate reports/allure-results --clean -o reports/allure-report"
   },
@@ -46,9 +47,11 @@
     "@typescript-eslint/eslint-plugin": "^8.36.0",
     "@typescript-eslint/parser": "^8.36.0",
     "allure-commandline": "^2.34.1",
+    "concurrently": "^9.2.1",
     "eslint": "^9.30.1",
     "tsx": "^4.20.3",
     "typescript": "^5.8.3",
-    "vitest": "^2.1.8"
+    "vitest": "^2.1.8",
+    "wait-on": "^9.0.4"
   }
 }

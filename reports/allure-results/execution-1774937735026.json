@@ -1,0 +1,292 @@
+{
+  "request": {
+    "suite": "smoke",
+    "env": "staging",
+    "tags": [],
+    "parallelism": 2,
+    "retries": 0,
+    "failFast": false,
+    "defectProvider": "jira"
+  },
+  "total": 11,
+  "passed": 9,
+  "failed": 2,
+  "skipped": 0,
+  "durationMs": 31660,
+  "results": [
+    {
+      "id": "reg_login",
+      "name": "Login Test - reg_login",
+      "suite": "smoke",
+      "platform": "web",
+      "tags": [
+        "web"
+      ],
+      "status": "passed",
+      "startedAt": "2026-03-31T06:15:03.375Z",
+      "endedAt": "2026-03-31T06:15:15.723Z",
+      "durationMs": 12348,
+      "retries": 0,
+      "artifacts": [
+        {
+          "name": "Login Request",
+          "type": "log",
+          "path": "",
+          "content": "{\n  \"username\": \"autoManuel3\",\n  \"password\": \"Automation@123\",\n  \"url\": \"https://canvas-preuat.muzaini.com/\"\n}"
+        },
+        {
+          "name": "Login Response",
+          "type": "log",
+          "path": "",
+          "content": "{\n  \"expected\": \"Let's explore easy transfer with our platform\",\n  \"actual\": \"Let's explore easy transfer with our platform\"\n}"
+        }
+      ]
+    },
+    {
+      "id": "reg_valuninvpa",
+      "name": "Login Test - reg_valuninvpa",
+      "suite": "smoke",
+      "platform": "web",
+      "tags": [
+        "web"
+      ],
+      "status": "passed",
+      "startedAt": "2026-03-31T06:15:03.380Z",
+      "endedAt": "2026-03-31T06:15:16.486Z",
+      "durationMs": 13106,
+      "retries": 0,
+      "artifacts": [
+        {
+          "name": "Login Request",
+          "type": "log",
+          "path": "",
+          "content": "{\n  \"username\": \"autoManuel3\",\n  \"password\": \"fsdfsdf\",\n  \"url\": \"https://canvas-preuat.muzaini.com/\"\n}"
+        },
+        {
+          "name": "Login Response",
+          "type": "log",
+          "path": "",
+          "content": "{\n  \"expected\": \"Invalid Username or Password\",\n  \"actual\": \"Invalid Username or Password\"\n}"
+        }
+      ]
+    },
+    {
+      "id": "reg_invusvalpa",
+      "name": "Login Test - reg_invusvalpa",
+      "suite": "smoke",
+      "platform": "web",
+      "tags": [
+        "web"
+      ],
+      "status": "passed",
+      "startedAt": "2026-03-31T06:15:16.153Z",
+      "endedAt": "2026-03-31T06:15:24.443Z",
+      "durationMs": 8290,
+      "retries": 0,
+      "artifacts": [
+        {
+          "name": "Login Request",
+          "type": "log",
+          "path": "",
+          "content": "{\n  \"username\": \"amecstsds\",\n  \"password\": \"Automation@123\",\n  \"url\": \"https://canvas-preuat.muzaini.com/\"\n}"
+        },
+        {
+          "name": "Login Response",
+          "type": "log",
+          "path": "",
+          "content": "{\n  \"expected\": \"Invalid username/password\",\n  \"actual\": \"Invalid username/password\"\n}"
+        }
+      ]
+    },
+    {
+      "id": "reg_invunpa",
+      "name": "Login Test - reg_invunpa",
+      "suite": "smoke",
+      "platform": "web",
+      "tags": [
+        "web"
+      ],
+      "status": "passed",
+      "startedAt": "2026-03-31T06:15:16.700Z",
+      "endedAt": "2026-03-31T06:15:25.569Z",
+      "durationMs": 8869,
+      "retries": 0,
+      "artifacts": [
+        {
+          "name": "Login Request",
+          "type": "log",
+          "path": "",
+          "content": "{\n  \"username\": \"amecstsds\",\n  \"password\": \"Tesxcv\",\n  \"url\": \"https://canvas-preuat.muzaini.com/\"\n}"
+        },
+        {
+          "name": "Login Response",
+          "type": "log",
+          "path": "",
+          "content": "{\n  \"expected\": \"Invalid username/password\",\n  \"actual\": \"Invalid username/password\"\n}"
+        }
+      ]
+    },
+    {
+      "id": "API-001",
+      "name": "Public API health validation",
+      "suite": "smoke",
+      "platform": "api",
+      "tags": [
+        "checkout",
+        "smoke"
+      ],
+      "status": "passed",
+      "startedAt": "2026-03-31T06:15:25.717Z",
+      "endedAt": "2026-03-31T06:15:25.745Z",
+      "durationMs": 28,
+      "retries": 0,
+      "artifacts": []
+    },
+    {
+      "id": "API-002",
+      "name": "Rate API Test",
+      "suite": "smoke",
+      "platform": "api",
+      "tags": [
+        "rate"
+      ],
+      "status": "passed",
+      "startedAt": "2026-03-31T06:15:25.746Z",
+      "endedAt": "2026-03-31T06:15:25.751Z",
+      "durationMs": 5,
+      "retries": 0,
+      "artifacts": [
+        {
+          "name": "API Request",
+          "type": "log",
+          "path": "",
+          "content": "{\n  \"amount\": 100,\n  \"currency\": \"USD\"\n}"
+        },
+        {
+          "name": "API Response",
+          "type": "log",
+          "path": "",
+          "content": "{\n  \"amount\": 100,\n  \"currency\": \"USD\",\n  \"rate\": 0.3,\n  \"convertedAmount\": 30\n}"
+        }
+      ]
+    },
+    {
+      "id": "API-003",
+      "name": "Branches API Test",
+      "suite": "smoke",
+      "platform": "api",
+      "tags": [
+        "branches"
+      ],
+      "status": "passed",
+      "startedAt": "2026-03-31T06:15:25.752Z",
+      "endedAt": "2026-03-31T06:15:25.758Z",
+      "durationMs": 6,
+      "retries": 0,
+      "artifacts": [
+        {
+          "name": "API Request",
+          "type": "log",
+          "path": "",
+          "content": "{\n  \"endpoint\": \"/branches\",\n  \"method\": \"GET\"\n}"
+        },
+        {
+          "name": "API Response",
+          "type": "log",
+          "path": "",
+          "content": "{\n  \"branches\": [\n    {\n      \"id\": 1,\n      \"name\": \"Kuwait City\"\n    },\n    {\n      \"id\": 2,\n      \"name\": \"Salmiya\"\n    }\n  ]\n}"
+        }
+      ]
+    },
+    {
+      "id": "API-004",
+      "name": "Support API Test",
+      "suite": "smoke",
+      "platform": "api",
+      "tags": [
+        "support"
+      ],
+      "status": "passed",
+      "startedAt": "2026-03-31T06:15:25.759Z",
+      "endedAt": "2026-03-31T06:15:25.764Z",
+      "durationMs": 5,
+      "retries": 0,
+      "artifacts": [
+        {
+          "name": "API Request",
+          "type": "log",
+          "path": "",
+          "content": "{\n  \"endpoint\": \"/support\",\n  \"method\": \"GET\"\n}"
+        },
+        {
+          "name": "API Response",
+          "type": "log",
+          "path": "",
+          "content": "{\n  \"email\": \"support@almuzaini.com\",\n  \"phone\": \"+965-12345678\"\n}"
+        }
+      ]
+    },
+    {
+      "id": "API-005",
+      "name": "Negative Test - Invalid Currency Code",
+      "suite": "smoke",
+      "platform": "api",
+      "tags": [
+        "api",
+        "negative"
+      ],
+      "status": "failed",
+      "startedAt": "2026-03-31T06:15:25.765Z",
+      "endedAt": "2026-03-31T06:15:25.770Z",
+      "durationMs": 5,
+      "retries": 0,
+      "artifacts": [
+        {
+          "name": "API Request",
+          "type": "log",
+          "path": "",
+          "content": "{\n  \"endpoint\": \"/rate\",\n  \"method\": \"POST\",\n  \"payload\": {\n    \"amount\": 100,\n    \"currency\": \"INVALID\"\n  }\n}"
+        },
+        {
+          "name": "API Response",
+          "type": "log",
+          "path": "",
+          "content": "{\n  \"amount\": 100,\n  \"currency\": \"INVALID\",\n  \"rate\": 0.3,\n  \"convertedAmount\": 30\n}"
+        }
+      ],
+      "error": "Negative test failed: API accepted invalid currency"
+    },
+    {
+      "id": "MOB-001",
+      "name": "Mobile login smoke validation",
+      "suite": "smoke",
+      "platform": "mobile",
+      "tags": [
+        "login",
+        "mobile"
+      ],
+      "status": "failed",
+      "startedAt": "2026-03-31T06:15:25.772Z",
+      "endedAt": "2026-03-31T06:15:28.953Z",
+      "durationMs": 3181,
+      "retries": 0,
+      "artifacts": [],
+      "error": "WebDriverError: The requested resource could not be found, or a request was received using an HTTP method that is not supported by the mapped resource. when running \"http://127.0.0.1:4723/wd/hub/session\" with method \"POST\""
+    },
+    {
+      "id": "WEB-001",
+      "name": "Homepage validation",
+      "suite": "smoke",
+      "platform": "web",
+      "tags": [
+        "web"
+      ],
+      "status": "passed",
+      "startedAt": "2026-03-31T06:15:24.653Z",
+      "endedAt": "2026-03-31T06:15:31.892Z",
+      "durationMs": 7239,
+      "retries": 0,
+      "artifacts": []
+    }
+  ]
+}

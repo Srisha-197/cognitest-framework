@@ -1,5 +1,0 @@
-{
-  "username": "amecstsds",
-  "password": "Automation@123",
-  "url": "https://canvas-preuat.muzaini.com/"
-}

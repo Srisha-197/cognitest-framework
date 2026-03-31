@@ -1,4 +1,0 @@
-{
-  "expected": "Invalid username/password",
-  "actual": "Invalid username/password"
-}

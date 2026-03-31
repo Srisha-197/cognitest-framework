@@ -1,6 +1,0 @@
-{
-  "amount": 100,
-  "currency": "INVALID",
-  "rate": 0.3,
-  "convertedAmount": 30
-}

@@ -1,4 +1,0 @@
-{
-  "endpoint": "/branches",
-  "method": "GET"
-}
