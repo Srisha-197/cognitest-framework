@@ -1,0 +1,36 @@
+{
+  "uuid": "1ccd2ba4-75db-43ce-b75a-eb9718345a47",
+  "historyId": "API-001",
+  "testCaseId": "API-001",
+  "name": "Public API health validation",
+  "fullName": "smoke#Public API health validation",
+  "status": "passed",
+  "stage": "finished",
+  "start": 1774952521016,
+  "stop": 1774952521017,
+  "steps": [],
+  "attachments": [],
+  "parameters": [],
+  "labels": [
+    {
+      "name": "suite",
+      "value": "smoke"
+    },
+    {
+      "name": "framework",
+      "value": "custom"
+    },
+    {
+      "name": "language",
+      "value": "typescript"
+    },
+    {
+      "name": "host",
+      "value": "jenkins"
+    },
+    {
+      "name": "thread",
+      "value": "main"
+    }
+  ]
+}

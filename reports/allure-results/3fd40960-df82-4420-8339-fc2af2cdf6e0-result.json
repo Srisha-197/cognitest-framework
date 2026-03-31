@@ -1,0 +1,36 @@
+{
+  "uuid": "3fd40960-df82-4420-8339-fc2af2cdf6e0",
+  "historyId": "API-002",
+  "testCaseId": "API-002",
+  "name": "Rate API Test",
+  "fullName": "smoke#Rate API Test",
+  "status": "passed",
+  "stage": "finished",
+  "start": 1774952521019,
+  "stop": 1774952521020,
+  "steps": [],
+  "attachments": [],
+  "parameters": [],
+  "labels": [
+    {
+      "name": "suite",
+      "value": "smoke"
+    },
+    {
+      "name": "framework",
+      "value": "custom"
+    },
+    {
+      "name": "language",
+      "value": "typescript"
+    },
+    {
+      "name": "host",
+      "value": "jenkins"
+    },
+    {
+      "name": "thread",
+      "value": "main"
+    }
+  ]
+}

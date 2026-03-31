@@ -12,7 +12,7 @@
   "passed": 9,
   "failed": 2,
   "skipped": 0,
-  "durationMs": 31660,
+  "durationMs": 30037,
   "results": [
     {
       "id": "reg_login",
@@ -23,9 +23,9 @@
         "web"
       ],
       "status": "passed",
-      "startedAt": "2026-03-31T06:15:03.375Z",
-      "endedAt": "2026-03-31T06:15:15.723Z",
-      "durationMs": 12348,
+      "startedAt": "2026-03-31T10:21:31.020Z",
+      "endedAt": "2026-03-31T10:21:43.179Z",
+      "durationMs": 12159,
       "retries": 0,
       "artifacts": [
         {
@@ -51,9 +51,9 @@
         "web"
       ],
       "status": "passed",
-      "startedAt": "2026-03-31T06:15:03.380Z",
-      "endedAt": "2026-03-31T06:15:16.486Z",
-      "durationMs": 13106,
+      "startedAt": "2026-03-31T10:21:31.026Z",
+      "endedAt": "2026-03-31T10:21:44.897Z",
+      "durationMs": 13871,
       "retries": 0,
       "artifacts": [
         {
@@ -79,9 +79,9 @@
         "web"
       ],
       "status": "passed",
-      "startedAt": "2026-03-31T06:15:16.153Z",
-      "endedAt": "2026-03-31T06:15:24.443Z",
-      "durationMs": 8290,
+      "startedAt": "2026-03-31T10:21:43.653Z",
+      "endedAt": "2026-03-31T10:21:52.072Z",
+      "durationMs": 8419,
       "retries": 0,
       "artifacts": [
         {
@@ -107,9 +107,9 @@
         "web"
       ],
       "status": "passed",
-      "startedAt": "2026-03-31T06:15:16.700Z",
-      "endedAt": "2026-03-31T06:15:25.569Z",
-      "durationMs": 8869,
+      "startedAt": "2026-03-31T10:21:45.048Z",
+      "endedAt": "2026-03-31T10:21:53.896Z",
+      "durationMs": 8848,
       "retries": 0,
       "artifacts": [
         {
@@ -136,9 +136,9 @@
         "smoke"
       ],
       "status": "passed",
-      "startedAt": "2026-03-31T06:15:25.717Z",
-      "endedAt": "2026-03-31T06:15:25.745Z",
-      "durationMs": 28,
+      "startedAt": "2026-03-31T10:21:54.284Z",
+      "endedAt": "2026-03-31T10:21:54.310Z",
+      "durationMs": 26,
       "retries": 0,
       "artifacts": []
     },
@@ -151,9 +151,9 @@
         "rate"
       ],
       "status": "passed",
-      "startedAt": "2026-03-31T06:15:25.746Z",
-      "endedAt": "2026-03-31T06:15:25.751Z",
-      "durationMs": 5,
+      "startedAt": "2026-03-31T10:21:54.311Z",
+      "endedAt": "2026-03-31T10:21:54.317Z",
+      "durationMs": 6,
       "retries": 0,
       "artifacts": [
         {
@@ -179,9 +179,9 @@
         "branches"
       ],
       "status": "passed",
-      "startedAt": "2026-03-31T06:15:25.752Z",
-      "endedAt": "2026-03-31T06:15:25.758Z",
-      "durationMs": 6,
+      "startedAt": "2026-03-31T10:21:54.318Z",
+      "endedAt": "2026-03-31T10:21:54.323Z",
+      "durationMs": 5,
       "retries": 0,
       "artifacts": [
         {
@@ -207,9 +207,9 @@
         "support"
       ],
       "status": "passed",
-      "startedAt": "2026-03-31T06:15:25.759Z",
-      "endedAt": "2026-03-31T06:15:25.764Z",
-      "durationMs": 5,
+      "startedAt": "2026-03-31T10:21:54.324Z",
+      "endedAt": "2026-03-31T10:21:54.328Z",
+      "durationMs": 4,
       "retries": 0,
       "artifacts": [
         {
@@ -236,9 +236,9 @@
         "negative"
       ],
       "status": "failed",
-      "startedAt": "2026-03-31T06:15:25.765Z",
-      "endedAt": "2026-03-31T06:15:25.770Z",
-      "durationMs": 5,
+      "startedAt": "2026-03-31T10:21:54.328Z",
+      "endedAt": "2026-03-31T10:21:54.332Z",
+      "durationMs": 4,
       "retries": 0,
       "artifacts": [
         {
@@ -266,9 +266,9 @@
         "mobile"
       ],
       "status": "failed",
-      "startedAt": "2026-03-31T06:15:25.772Z",
-      "endedAt": "2026-03-31T06:15:28.953Z",
-      "durationMs": 3181,
+      "startedAt": "2026-03-31T10:21:54.334Z",
+      "endedAt": "2026-03-31T10:21:57.963Z",
+      "durationMs": 3629,
       "retries": 0,
       "artifacts": [],
       "error": "WebDriverError: The requested resource could not be found, or a request was received using an HTTP method that is not supported by the mapped resource. when running \"http://127.0.0.1:4723/wd/hub/session\" with method \"POST\""
@@ -282,9 +282,9 @@
         "web"
       ],
       "status": "passed",
-      "startedAt": "2026-03-31T06:15:24.653Z",
-      "endedAt": "2026-03-31T06:15:31.892Z",
-      "durationMs": 7239,
+      "startedAt": "2026-03-31T10:21:52.275Z",
+      "endedAt": "2026-03-31T10:21:59.444Z",
+      "durationMs": 7169,
       "retries": 0,
       "artifacts": []
     }

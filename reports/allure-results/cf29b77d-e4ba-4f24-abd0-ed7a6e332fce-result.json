@@ -1,0 +1,36 @@
+{
+  "uuid": "cf29b77d-e4ba-4f24-abd0-ed7a6e332fce",
+  "historyId": "MOB-001",
+  "testCaseId": "MOB-001",
+  "name": "Mobile login smoke validation",
+  "fullName": "smoke#Mobile login smoke validation",
+  "status": "failed",
+  "stage": "finished",
+  "start": 1774952521038,
+  "stop": 1774952521039,
+  "steps": [],
+  "attachments": [],
+  "parameters": [],
+  "labels": [
+    {
+      "name": "suite",
+      "value": "smoke"
+    },
+    {
+      "name": "framework",
+      "value": "custom"
+    },
+    {
+      "name": "language",
+      "value": "typescript"
+    },
+    {
+      "name": "host",
+      "value": "jenkins"
+    },
+    {
+      "name": "thread",
+      "value": "main"
+    }
+  ]
+}

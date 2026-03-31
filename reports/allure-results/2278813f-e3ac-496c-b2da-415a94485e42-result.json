@@ -1,0 +1,36 @@
+{
+  "uuid": "2278813f-e3ac-496c-b2da-415a94485e42",
+  "historyId": "reg_invunpa",
+  "testCaseId": "reg_invunpa",
+  "name": "Login Test - reg_invunpa",
+  "fullName": "smoke#Login Test - reg_invunpa",
+  "status": "passed",
+  "stage": "finished",
+  "start": 1774952521012,
+  "stop": 1774952521013,
+  "steps": [],
+  "attachments": [],
+  "parameters": [],
+  "labels": [
+    {
+      "name": "suite",
+      "value": "smoke"
+    },
+    {
+      "name": "framework",
+      "value": "custom"
+    },
+    {
+      "name": "language",
+      "value": "typescript"
+    },
+    {
+      "name": "host",
+      "value": "jenkins"
+    },
+    {
+      "name": "thread",
+      "value": "main"
+    }
+  ]
+}

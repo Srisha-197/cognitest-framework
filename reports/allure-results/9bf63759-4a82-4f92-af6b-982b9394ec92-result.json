@@ -1,0 +1,36 @@
+{
+  "uuid": "9bf63759-4a82-4f92-af6b-982b9394ec92",
+  "historyId": "WEB-001",
+  "testCaseId": "WEB-001",
+  "name": "Homepage validation",
+  "fullName": "smoke#Homepage validation",
+  "status": "passed",
+  "stage": "finished",
+  "start": 1774952521040,
+  "stop": 1774952521041,
+  "steps": [],
+  "attachments": [],
+  "parameters": [],
+  "labels": [
+    {
+      "name": "suite",
+      "value": "smoke"
+    },
+    {
+      "name": "framework",
+      "value": "custom"
+    },
+    {
+      "name": "language",
+      "value": "typescript"
+    },
+    {
+      "name": "host",
+      "value": "jenkins"
+    },
+    {
+      "name": "thread",
+      "value": "main"
+    }
+  ]
+}

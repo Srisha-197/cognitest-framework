@@ -1,0 +1,36 @@
+{
+  "uuid": "db0644fe-f5c4-459c-9f4e-808a0db0833a",
+  "historyId": "reg_valuninvpa",
+  "testCaseId": "reg_valuninvpa",
+  "name": "Login Test - reg_valuninvpa",
+  "fullName": "smoke#Login Test - reg_valuninvpa",
+  "status": "passed",
+  "stage": "finished",
+  "start": 1774952521002,
+  "stop": 1774952521003,
+  "steps": [],
+  "attachments": [],
+  "parameters": [],
+  "labels": [
+    {
+      "name": "suite",
+      "value": "smoke"
+    },
+    {
+      "name": "framework",
+      "value": "custom"
+    },
+    {
+      "name": "language",
+      "value": "typescript"
+    },
+    {
+      "name": "host",
+      "value": "jenkins"
+    },
+    {
+      "name": "thread",
+      "value": "main"
+    }
+  ]
+}

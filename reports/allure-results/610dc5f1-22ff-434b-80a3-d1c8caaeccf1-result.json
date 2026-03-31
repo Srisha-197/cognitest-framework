@@ -1,0 +1,36 @@
+{
+  "uuid": "610dc5f1-22ff-434b-80a3-d1c8caaeccf1",
+  "historyId": "API-005",
+  "testCaseId": "API-005",
+  "name": "Negative Test - Invalid Currency Code",
+  "fullName": "smoke#Negative Test - Invalid Currency Code",
+  "status": "failed",
+  "stage": "finished",
+  "start": 1774952521036,
+  "stop": 1774952521037,
+  "steps": [],
+  "attachments": [],
+  "parameters": [],
+  "labels": [
+    {
+      "name": "suite",
+      "value": "smoke"
+    },
+    {
+      "name": "framework",
+      "value": "custom"
+    },
+    {
+      "name": "language",
+      "value": "typescript"
+    },
+    {
+      "name": "host",
+      "value": "jenkins"
+    },
+    {
+      "name": "thread",
+      "value": "main"
+    }
+  ]
+}

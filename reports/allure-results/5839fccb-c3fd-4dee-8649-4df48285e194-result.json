@@ -1,0 +1,36 @@
+{
+  "uuid": "5839fccb-c3fd-4dee-8649-4df48285e194",
+  "historyId": "reg_login",
+  "testCaseId": "reg_login",
+  "name": "Login Test - reg_login",
+  "fullName": "smoke#Login Test - reg_login",
+  "status": "passed",
+  "stage": "finished",
+  "start": 1774952521000,
+  "stop": 1774952521001,
+  "steps": [],
+  "attachments": [],
+  "parameters": [],
+  "labels": [
+    {
+      "name": "suite",
+      "value": "smoke"
+    },
+    {
+      "name": "framework",
+      "value": "custom"
+    },
+    {
+      "name": "language",
+      "value": "typescript"
+    },
+    {
+      "name": "host",
+      "value": "jenkins"
+    },
+    {
+      "name": "thread",
+      "value": "main"
+    }
+  ]
+}

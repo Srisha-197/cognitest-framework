@@ -159,37 +159,50 @@ export class TestRunnerService {
 
   // ================= WRITE ALLURE =================
   async writeAllureResults(results: TestResult[]): Promise<void> {
-    const dir = path.join(process.cwd(), "reports", "allure-results");
-    await fs.mkdir(dir, { recursive: true });
+  const dir = path.join(process.cwd(), "reports", "allure-results");
+  await fs.mkdir(dir, { recursive: true });
 
-    for (const result of results) {
-      const uuid = uuidv4();
+  for (const result of results) {
+    const uuid = uuidv4();
 
-      const file = path.join(dir, `${uuid}-result.json`);
+    const file = path.join(dir, `${uuid}-result.json`);
 
-      const data = {
-        uuid: uuid,
-        historyId: result.id,
-        name: result.name,
-        fullName: result.name,
-        status: result.status,
-        stage: "finished",
+    // ✅ FIX: fallback timestamps
+    const startTime = Number(result.startedAt) || Date.now();
+    const stopTime = Number(result.endedAt) || startTime + 1;
 
-        start: Number(result.startedAt), // ✅ FIXED (must be number)
-        stop: Number(result.endedAt),    // ✅ FIXED
+    const data = {
+      uuid: uuid,
+      historyId: result.id,
+      testCaseId: result.id,
 
-        labels: [
-          { name: "suite", value: result.suite || "default" },
-          { name: "framework", value: "custom" },
-          { name: "language", value: "typescript" }
-        ]
-      };
+      name: result.name,
+      fullName: `${result.suite || "default"}#${result.name}`,
 
-      await fs.writeFile(file, JSON.stringify(data, null, 2));
-    }
+      status: result.status,
+      stage: "finished",
 
-    console.log("Allure results written successfully");
+      start: startTime,   // ✅ ALWAYS NUMBER
+      stop: stopTime,     // ✅ ALWAYS NUMBER
+
+      steps: [],
+      attachments: [],
+      parameters: [],
+
+      labels: [
+        { name: "suite", value: result.suite || "default" },
+        { name: "framework", value: "custom" },
+        { name: "language", value: "typescript" },
+        { name: "host", value: "jenkins" },
+        { name: "thread", value: "main" }
+      ]
+    };
+
+    await fs.writeFile(file, JSON.stringify(data, null, 2));
   }
+
+  console.log("Allure result files created successfully");
+}
 
   // ================= SUMMARY =================
   private printSummary(results: TestResult[]) {

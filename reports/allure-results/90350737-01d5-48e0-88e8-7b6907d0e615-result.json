@@ -1,0 +1,36 @@
+{
+  "uuid": "90350737-01d5-48e0-88e8-7b6907d0e615",
+  "historyId": "API-003",
+  "testCaseId": "API-003",
+  "name": "Branches API Test",
+  "fullName": "smoke#Branches API Test",
+  "status": "passed",
+  "stage": "finished",
+  "start": 1774952521022,
+  "stop": 1774952521023,
+  "steps": [],
+  "attachments": [],
+  "parameters": [],
+  "labels": [
+    {
+      "name": "suite",
+      "value": "smoke"
+    },
+    {
+      "name": "framework",
+      "value": "custom"
+    },
+    {
+      "name": "language",
+      "value": "typescript"
+    },
+    {
+      "name": "host",
+      "value": "jenkins"
+    },
+    {
+      "name": "thread",
+      "value": "main"
+    }
+  ]
+}

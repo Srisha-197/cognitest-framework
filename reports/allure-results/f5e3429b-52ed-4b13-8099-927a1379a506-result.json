@@ -1,0 +1,36 @@
+{
+  "uuid": "f5e3429b-52ed-4b13-8099-927a1379a506",
+  "historyId": "API-004",
+  "testCaseId": "API-004",
+  "name": "Support API Test",
+  "fullName": "smoke#Support API Test",
+  "status": "passed",
+  "stage": "finished",
+  "start": 1774952521025,
+  "stop": 1774952521026,
+  "steps": [],
+  "attachments": [],
+  "parameters": [],
+  "labels": [
+    {
+      "name": "suite",
+      "value": "smoke"
+    },
+    {
+      "name": "framework",
+      "value": "custom"
+    },
+    {
+      "name": "language",
+      "value": "typescript"
+    },
+    {
+      "name": "host",
+      "value": "jenkins"
+    },
+    {
+      "name": "thread",
+      "value": "main"
+    }
+  ]
+}

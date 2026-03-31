@@ -1,0 +1,36 @@
+{
+  "uuid": "1169df2a-ffc8-4c2e-97ce-59315bdde3cf",
+  "historyId": "reg_invusvalpa",
+  "testCaseId": "reg_invusvalpa",
+  "name": "Login Test - reg_invusvalpa",
+  "fullName": "smoke#Login Test - reg_invusvalpa",
+  "status": "passed",
+  "stage": "finished",
+  "start": 1774952521009,
+  "stop": 1774952521010,
+  "steps": [],
+  "attachments": [],
+  "parameters": [],
+  "labels": [
+    {
+      "name": "suite",
+      "value": "smoke"
+    },
+    {
+      "name": "framework",
+      "value": "custom"
+    },
+    {
+      "name": "language",
+      "value": "typescript"
+    },
+    {
+      "name": "host",
+      "value": "jenkins"
+    },
+    {
+      "name": "thread",
+      "value": "main"
+    }
+  ]
+}
