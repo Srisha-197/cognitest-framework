@@ -26,9 +26,9 @@ pipeline {
         stage('Run Tests in Docker') {
             steps {
                 withCredentials([
-                    string(credentialsId: 'jira-url', variable: 'JIRA_BASE_URL'),
-                    string(credentialsId: 'jira-email', variable: 'JIRA_EMAIL'),
-                    string(credentialsId: 'jira-token', variable: 'JIRA_API_TOKEN'),
+                    string(credentialsId: 'JIRA_BASE_URL', variable: 'JIRA_BASE_URL'),
+                    string(credentialsId: 'JIRA_EMAIL', variable: 'JIRA_EMAIL'),
+                    string(credentialsId: 'JIRA_API_TOKEN', variable: 'JIRA_API_TOKEN'),
                     string(credentialsId: 'JIRA_PROJECT_KEY', variable: 'JIRA_PROJECT_KEY'),
                     string(credentialsId: 'JIRA_ACCOUNT_ID', variable: 'JIRA_ACCOUNT_ID'),
                     string(credentialsId: 'API_BASE_URL', variable: 'API_BASE_URL'),
