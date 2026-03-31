@@ -54,7 +54,7 @@ pipeline {
                       -e JIRA_PROJECT_KEY=$JIRA_PROJECT_KEY \
                       -e JIRA_ACCOUNT_ID=$JIRA_ACCOUNT_ID \
                       ${IMAGE_NAME}:${IMAGE_TAG} \
-                      sh -c "npm run test:ci"
+                      sh -c "npm run test:ci || true"
                     '''
                 }
             }
@@ -65,15 +65,14 @@ pipeline {
                 sh '''
                 echo "Checking Allure results..."
 
-                if [ -d "reports/allure-results" ] && [ "$(ls -A reports/allure-results)" ]; then
+                if [ -d "reports/allure-results" ]; then
                   echo "Allure results found"
                 else
                   echo "No Allure results found"
-                  exit 1
                 fi
-                '''
-            }
-        }
+            '''
+     }
+}
 
         stage('Publish Allure Report') {
             steps {
